@@ -1,3 +1,4 @@
 models/*
+!/models/.gitkeep
 .venv
 src/__pycache__
