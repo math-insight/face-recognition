@@ -3,3 +3,4 @@ flask
 keras
 keras_preprocessing
 tensorflow
+python-dotenv

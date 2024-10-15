@@ -1,9 +1,19 @@
 import cv2
 import numpy as np
+import os
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+from dotenv import load_dotenv
+load_dotenv()
 import keras
 from keras_preprocessing.image import img_to_array
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import tensorflow as tf
+import warnings
+import logging
+
+warnings.filterwarnings('ignore', category=UserWarning, module='keras')
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+logging.getLogger('absl').setLevel(logging.ERROR)
 
 
 def load_models():
