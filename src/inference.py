@@ -3,9 +3,17 @@ import numpy as np
 import keras
 from keras_preprocessing.image import img_to_array
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import tensorflow as tf
 
 
 def load_models():
+    gpus = tf.config.list_physical_devices('GPU')
+    if gpus:
+        try:
+            tf.config.experimental.set_visible_devices(gpus[0], 'GPU')
+        except RuntimeError as e:
+            print(e)
+    
     face_classifier = cv2.CascadeClassifier(r'./models/haarcascade_frontalface_default.xml')
     gender_model = keras.saving.load_model(r'./models/gender_model_3epochs.h5', custom_objects={'mse': keras.losses.mean_squared_error})
     emotion_model = keras.saving.load_model(r'./models/emotion_detection_model_50epochs.h5', custom_objects={'mse': keras.losses.mean_squared_error})
